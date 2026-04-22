@@ -1,0 +1,617 @@
+# 🌐 Stack IoT Complète - TP1 M1 BDGL UFHB
+
+> **Plateforme IoT temps réel** avec simulation ESP32, collecte MQTT, stockage time-series et visualisation interactive.
+
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker)](https://www.docker.com/)
+[![InfluxDB](https://img.shields.io/badge/InfluxDB-2.7-22ADF6?logo=influxdb)](https://www.influxdata.com/)
+[![Grafana](https://img.shields.io/badge/Grafana-10.4-F46800?logo=grafana)](https://grafana.com/)
+[![ESP32](https://img.shields.io/badge/ESP32-Wokwi-E7352C?logo=espressif)](https://wokwi.com/)
+
+---
+
+## 📋 Table des matières
+
+- [Vue d'ensemble](#-vue-densemble)
+- [Architecture](#-architecture)
+- [Prérequis](#-prérequis)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Utilisation](#-utilisation)
+- [Dashboard Grafana](#-dashboard-grafana)
+- [Simulation ESP32](#-simulation-esp32)
+- [Dépannage](#-dépannage)
+- [Commandes utiles](#-commandes-utiles)
+- [Structure du projet](#-structure-du-projet)
+
+---
+
+## 🎯 Vue d'ensemble
+
+Ce projet implémente une **stack IoT complète** pour la collecte, le stockage et la visualisation de données de capteurs en temps réel. Il utilise un ESP32 virtuel (simulé avec Wokwi) qui envoie des données de température et d'humidité via MQTT.
+
+### **Services déployés**
+
+| Service | Version | Rôle | Port |
+|---------|---------|------|------|
+| **Mosquitto** | 2.0 | Broker MQTT | 1883, 9001 |
+| **Telegraf** | 1.28 | Agent de collecte et transformation | - |
+| **InfluxDB** | 2.7 | Base de données time-series | 8086 |
+| **Grafana** | 10.4 | Visualisation et dashboards | 3000 |
+| **ESP32 (Wokwi)** | - | Simulation de capteur DHT22 | - |
+
+### **Technologies utilisées**
+
+- **Docker Compose** : Orchestration des services
+- **MQTT** : Protocole de messagerie IoT
+- **InfluxDB Line Protocol** : Format de données optimisé
+- **Flux** : Langage de requête InfluxDB 2.x
+- **PlatformIO** : Framework de développement ESP32
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     STACK IoT - UFHB M1 BDGL                    │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────────┐
+│   ESP32 (Wokwi)  │  Simulation locale dans VSCode/PlatformIO
+│   DHT22 Sensor   │  • Température : 27.5°C
+│                  │  • Humidité : 65%
+└────────┬─────────┘  • Envoi toutes les 10 secondes
+         │
+         │ MQTT Publish
+         │ Topic: iot/CI/abidjan/cocody/esp32_001
+         │ Format: InfluxDB Line Protocol
+         ↓
+┌──────────────────┐
+│    Mosquitto     │  Broker MQTT (Docker)
+│   Port: 1883     │  • Accepte connexions anonymes
+│   Port: 9001     │  • WebSocket activé
+└────────┬─────────┘  • Réseau : iot_network
+         │
+         │ MQTT Subscribe
+         │ Topic: iot/CI/abidjan/#
+         ↓
+┌──────────────────┐
+│     Telegraf     │  Agent de collecte (Docker)
+│   Interval: 10s  │  • Parse Line Protocol
+└────────┬─────────┘  • Flush vers InfluxDB toutes les 10s
+         │
+         │ HTTP Write
+         │ Token API authentifié
+         ↓
+┌──────────────────┐
+│    InfluxDB      │  Base de données time-series (Docker)
+│   Port: 8086     │  • Organization: UFHB-IoT
+│                  │  • Bucket: raw_7d (retention: 7 jours)
+└────────┬─────────┘  • Stockage optimisé pour séries temporelles
+         │
+         │ Flux Query Language
+         │ Requêtes avec filtres et agrégations
+         ↓
+┌──────────────────┐
+│     Grafana      │  Visualisation (Docker)
+│   Port: 3000     │  • Dashboard temps réel
+│                  │  • Auto-refresh: 5 secondes
+└──────────────────┘  • 5 panneaux de visualisation
+```
+
+### **Flux de données détaillé**
+
+1. **ESP32 (Wokwi)** → Lit capteur DHT22 → Construit payload Line Protocol
+2. **MQTT Publish** → `environment,location=cocody,device_id=ESP32_Wokwi_001,sensor=DHT22 temperature=27.5,humidity=65.0`
+3. **Mosquitto** → Reçoit et route le message
+4. **Telegraf** → Subscribe au topic → Parse le format → Envoie vers InfluxDB
+5. **InfluxDB** → Stocke dans le bucket `raw_7d` avec tags et fields
+6. **Grafana** → Query Flux → Affiche graphiques temps réel
+
+---
+
+## 🔧 Prérequis
+
+### **Logiciels requis**
+
+- **Docker Desktop** (>= 20.10)
+  - Windows: [Télécharger](https://www.docker.com/products/docker-desktop/)
+  - Activez WSL 2 si sous Windows
+
+- **Docker Compose** (>= 2.0)
+  - Inclus avec Docker Desktop
+
+- **Visual Studio Code** (dernière version)
+  - [Télécharger](https://code.visualstudio.com/)
+
+### **Extensions VSCode recommandées**
+
+1. **PlatformIO IDE** - Développement ESP32
+2. **Wokwi Simulator** (optionnel) - Simulation locale
+3. **Docker** - Gestion des conteneurs
+4. **GitLens** - Gestion Git avancée
+
+### **Configuration système**
+
+- **RAM** : Minimum 4 GB (8 GB recommandé)
+- **Espace disque** : ~2 GB pour les images Docker
+- **Réseau** : Connexion Internet pour le premier pull des images
+
+---
+
+## 🚀 Installation
+
+### **1. Cloner le projet**
+
+```bash
+git clone https://github.com/leonelyap01/tp1-iot-abidjan.git
+cd tp1-iot-abidjan
+```
+
+### **2. Lancer la stack Docker**
+
+```bash
+docker-compose up -d
+```
+
+**Vérification** :
+```bash
+docker-compose ps
+```
+
+Tous les services doivent être `Up` :
+```
+NAME        STATUS          PORTS
+mosquitto   Up 10 seconds   0.0.0.0:1883->1883/tcp, 0.0.0.0:9001->9001/tcp
+influxdb    Up 10 seconds   0.0.0.0:8086->8086/tcp
+telegraf    Up 9 seconds
+grafana     Up 9 seconds    0.0.0.0:3000->3000/tcp
+```
+
+### **3. Vérifier l'initialisation d'InfluxDB**
+
+InfluxDB s'initialise automatiquement avec :
+- **Username** : `admin`
+- **Password** : `ufhb2024!`
+- **Organization** : `UFHB-IoT`
+- **Bucket** : `raw_7d` (rétention : 168 heures = 7 jours)
+
+Accédez à [http://localhost:8086](http://localhost:8086) et connectez-vous.
+
+---
+
+## ⚙️ Configuration
+
+### **Étape 1 : Générer le token API InfluxDB**
+
+1. Ouvrez [http://localhost:8086](http://localhost:8086)
+2. Login : `admin` / `ufhb2024!`
+3. Menu **Load Data** → **API Tokens**
+4. **Generate API Token** → **All Access API Token**
+5. Nom : `Telegraf Token`
+6. **Copiez le token généré**
+
+### **Étape 2 : Configurer Telegraf**
+
+Éditez le fichier [`telegraf/telegraf.conf`](telegraf/telegraf.conf) :
+
+```conf
+[[outputs.influxdb_v2]]
+  urls         = ["http://influxdb:8086"]
+  token        = "COLLEZ_VOTRE_TOKEN_ICI"  # ← Remplacez
+  organization = "UFHB-IoT"
+  bucket       = "raw_7d"
+```
+
+Redémarrez Telegraf :
+```bash
+docker-compose restart telegraf
+```
+
+### **Étape 3 : Configurer la datasource Grafana** (optionnel)
+
+Éditez [`grafana/provisioning/datasources/influxdb.yml`](grafana/provisioning/datasources/influxdb.yml) :
+
+```yaml
+secureJsonData:
+  token: COLLEZ_VOTRE_TOKEN_ICI  # ← Même token que Telegraf
+```
+
+Redémarrez Grafana :
+```bash
+docker-compose restart grafana
+```
+
+---
+
+## 📊 Utilisation
+
+### **Accès aux interfaces Web**
+
+| Service | URL | Credentials |
+|---------|-----|-------------|
+| **InfluxDB** | [http://localhost:8086](http://localhost:8086) | `admin` / `ufhb2024!` |
+| **Grafana** | [http://localhost:3000](http://localhost:3000) | `admin` / `ufhb2024!` |
+
+### **Lancer la simulation ESP32**
+
+#### **Méthode 1 : Avec PlatformIO (Recommandé)**
+
+1. Ouvrez le projet `esp32-wokwi-project` dans VSCode
+2. Installez l'extension **PlatformIO IDE**
+3. **Compilez** : Cliquez sur l'icône ✓ (Build) en bas
+4. **Simulez** : `F1` → `Wokwi: Start Simulator`
+
+#### **Méthode 2 : Sur Wokwi.com**
+
+1. Allez sur [wokwi.com](https://wokwi.com/projects/new/esp32)
+2. Copiez le code depuis [`wokwi-esp32-mqtt.ino`](wokwi-esp32-mqtt.ino)
+3. Configurez le `diagram.json` (voir [`WOKWI-SETUP.md`](WOKWI-SETUP.md))
+4. **Important** : Modifiez l'IP MQTT selon votre réseau
+
+### **Vérifier la réception des données**
+
+**Tester MQTT** :
+```bash
+docker exec mosquitto mosquitto_sub -h localhost -t "iot/CI/abidjan/#" -v
+```
+
+**Ou utilisez le script** :
+```bash
+./test-mqtt.bat   # Windows
+```
+
+Vous devriez voir (toutes les 10 secondes) :
+```
+iot/CI/abidjan/cocody/esp32_001 environment,location=cocody,device_id=ESP32_Wokwi_001,sensor=DHT22 temperature=27.5,humidity=65.0
+```
+
+---
+
+## 📈 Dashboard Grafana
+
+### **Accéder au dashboard pré-configuré**
+
+1. Ouvrez [http://localhost:3000](http://localhost:3000)
+2. Login : `admin` / `ufhb2024!`
+3. Menu ☰ → **Dashboards** → **ESP32 IoT Dashboard - UFHB M1 BDGL**
+
+**Ou lien direct** :
+```
+http://localhost:3000/d/esp32_iot_dashboard/esp32-iot-dashboard-ufhb-m1-bdgl
+```
+
+### **Panneaux du dashboard**
+
+Le dashboard contient 5 visualisations :
+
+1. **Graphique de température** (Time Series)
+   - Évolution dans le temps avec moyennes, min, max
+
+2. **Graphique d'humidité** (Time Series)
+   - Évolution dans le temps avec statistiques
+
+3. **Jauge de température actuelle** (Gauge)
+   - Affichage instantané avec code couleur
+   - Seuils : Bleu (<20°C), Vert (20-25°C), Orange (25-30°C), Rouge (>30°C)
+
+4. **Jauge d'humidité actuelle** (Gauge)
+   - Affichage instantané avec code couleur
+   - Seuils : Rouge (<30%), Orange (30-40%), Vert (40-70%), Bleu (>70%)
+
+5. **Statistiques par capteur** (Bar Gauge)
+   - Vue agrégée par device_id et location
+
+**Auto-refresh** : 5 secondes
+**Plage par défaut** : 15 dernières minutes
+
+### **Créer des requêtes Flux personnalisées**
+
+**Exemple - Moyenne de température sur 1 heure** :
+```flux
+from(bucket: "raw_7d")
+  |> range(start: -1h)
+  |> filter(fn: (r) => r["_measurement"] == "environment")
+  |> filter(fn: (r) => r["_field"] == "temperature")
+  |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)
+```
+
+**Exemple - Filtrer par device** :
+```flux
+from(bucket: "raw_7d")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "environment")
+  |> filter(fn: (r) => r["device_id"] == "ESP32_Wokwi_001")
+  |> filter(fn: (r) => r["_field"] == "temperature")
+```
+
+Pour plus d'exemples, consultez le [guide complet](GUIDE-DASHBOARD-GRAFANA.md).
+
+---
+
+## 🔌 Simulation ESP32
+
+### **Configuration du capteur DHT22**
+
+Le projet ESP32 simule un capteur DHT22 qui mesure :
+- **Température** : Par défaut 27.5°C
+- **Humidité** : Par défaut 65%
+
+### **Modifier les valeurs simulées**
+
+Éditez [`esp32-wokwi-project/diagram.json`](esp32-wokwi-project/diagram.json) :
+
+```json
+{
+  "type": "wokwi-dht22",
+  "attrs": {
+    "temperature": "30.5",  // ← Changez ici (°C)
+    "humidity": "75"        // ← Changez ici (%)
+  }
+}
+```
+
+Puis recompilez et relancez la simulation.
+
+### **Format du payload MQTT**
+
+Le ESP32 envoie les données au format **InfluxDB Line Protocol** :
+
+```
+measurement,tag1=value1,tag2=value2 field1=value1,field2=value2
+```
+
+**Exemple réel** :
+```
+environment,location=cocody,device_id=ESP32_Wokwi_001,sensor=DHT22 temperature=27.5,humidity=65.0
+```
+
+**Décomposition** :
+- **Measurement** : `environment`
+- **Tags** : `location=cocody`, `device_id=ESP32_Wokwi_001`, `sensor=DHT22`
+- **Fields** : `temperature=27.5`, `humidity=65.0`
+
+### **Configuration réseau**
+
+Le ESP32 se connecte à votre broker MQTT local. Modifiez l'IP dans [`esp32-wokwi-project/src/main.cpp`](esp32-wokwi-project/src/main.cpp) :
+
+```cpp
+const char* mqtt_server = "VOTRE_IP_LOCALE";  // Ex: "192.168.1.3"
+```
+
+Pour trouver votre IP :
+```bash
+ipconfig  # Windows
+```
+
+---
+
+## 🐛 Dépannage
+
+### **Problème : Dashboard Grafana affiche "No data"**
+
+**Causes possibles** :
+
+1. **Simulation Wokwi non lancée**
+   ```bash
+   # Solution : Lancez la simulation
+   F1 → Wokwi: Start Simulator
+   ```
+
+2. **Token InfluxDB incorrect**
+   ```bash
+   # Vérifiez que le token est le même dans :
+   # - telegraf/telegraf.conf
+   # - grafana/provisioning/datasources/influxdb.yml
+   ```
+
+3. **Plage de temps incorrecte**
+   ```
+   # Dans Grafana, changez "Last 15 minutes" pour "Last 1 hour"
+   ```
+
+4. **Pas de données dans InfluxDB**
+   ```bash
+   # Vérifiez avec :
+   ./check-influxdb-data.bat  # Windows
+   ```
+
+### **Problème : Erreur de connexion MQTT ESP32**
+
+**Code erreur -2 : Échec de connexion**
+
+```bash
+# 1. Vérifiez l'IP du serveur MQTT
+ipconfig  # Notez votre IP Wi-Fi
+
+# 2. Modifiez src/main.cpp avec la bonne IP
+
+# 3. Autorisez le port dans le Firewall (Windows)
+./allow-mqtt-firewall.bat  # Exécuter en Admin
+```
+
+### **Problème : Telegraf n'écrit pas dans InfluxDB**
+
+```bash
+# Vérifiez les logs
+docker-compose logs telegraf --tail 50
+
+# Cherchez des erreurs d'authentification
+# Si "unauthorized", le token est incorrect
+```
+
+### **Logs et diagnostics**
+
+```bash
+# Logs en temps réel
+docker-compose logs -f
+
+# Logs d'un service spécifique
+docker-compose logs influxdb --tail 50
+docker-compose logs telegraf --tail 50
+docker-compose logs mosquitto --tail 50
+docker-compose logs grafana --tail 50
+
+# Statut des conteneurs
+docker-compose ps
+
+# Redémarrer un service
+docker-compose restart <service_name>
+```
+
+---
+
+## 🛠️ Commandes utiles
+
+### **Gestion de la stack**
+
+```bash
+# Lancer tous les services
+docker-compose up -d
+
+# Arrêter tous les services (données conservées)
+docker-compose down
+
+# Arrêter et supprimer volumes (ATTENTION: perte de données)
+docker-compose down -v
+
+# Redémarrer un service
+docker-compose restart telegraf
+
+# Voir les logs
+docker-compose logs -f
+
+# Reconstruire les images
+docker-compose build --no-cache
+docker-compose up -d
+```
+
+### **MQTT**
+
+```bash
+# Publier un message de test
+docker exec mosquitto mosquitto_pub -h localhost \
+  -t "iot/CI/abidjan/test" \
+  -m "environment,location=test,device_id=TEST temperature=25.0,humidity=60.0"
+
+# S'abonner à tous les topics
+docker exec mosquitto mosquitto_sub -h localhost -t "#" -v
+
+# S'abonner à un topic spécifique
+docker exec mosquitto mosquitto_sub -h localhost \
+  -t "iot/CI/abidjan/#" -v
+```
+
+### **InfluxDB**
+
+```bash
+# Lancer une requête Flux
+docker exec influxdb influx query \
+  'from(bucket:"raw_7d") |> range(start: -1h) |> filter(fn: (r) => r._measurement == "environment") |> limit(n:10)' \
+  --org UFHB-IoT
+
+# Lister les buckets
+docker exec influxdb influx bucket list --org UFHB-IoT
+
+# Lister les tokens
+docker exec influxdb influx auth list --org UFHB-IoT
+```
+
+---
+
+## 📁 Structure du projet
+
+```
+iot-stack/
+├── docker-compose.yml              # Orchestration des services
+├── .gitignore                      # Fichiers ignorés par Git
+├── README.md                       # Ce fichier
+│
+├── mosquitto/                      # Configuration Mosquitto
+│   ├── config/
+│   │   └── mosquitto.conf          # Config broker MQTT
+│   ├── data/                       # Données persistantes (gitignored)
+│   └── log/                        # Logs (gitignored)
+│
+├── telegraf/                       # Configuration Telegraf
+│   └── telegraf.conf               # Config agent de collecte
+│
+├── grafana/                        # Configuration Grafana
+│   └── provisioning/
+│       ├── datasources/
+│       │   └── influxdb.yml        # Datasource InfluxDB pré-configurée
+│       └── dashboards/
+│           ├── dashboard.yml       # Config provisioning
+│           └── esp32-iot-dashboard.json  # Dashboard pré-configuré
+│
+├── esp32-wokwi-project/            # Projet ESP32 avec PlatformIO
+│   ├── platformio.ini              # Config PlatformIO
+│   ├── wokwi.toml                  # Config Wokwi
+│   ├── diagram.json                # Schéma électronique (ESP32 + DHT22)
+│   ├── src/
+│   │   └── main.cpp                # Code ESP32
+│   └── README.md                   # Guide du projet ESP32
+│
+├── wokwi-esp32-mqtt.ino            # Code Arduino (pour Wokwi.com)
+├── WOKWI-SETUP.md                  # Guide setup Wokwi
+├── GUIDE-DASHBOARD-GRAFANA.md      # Guide complet Grafana
+│
+└── Scripts Windows/                # Scripts utilitaires (*.bat)
+    ├── test-mqtt.bat               # Tester la réception MQTT
+    ├── check-influxdb-data.bat     # Vérifier les données InfluxDB
+    ├── restart-telegraf.bat        # Redémarrer Telegraf
+    ├── allow-mqtt-firewall.bat     # Autoriser port 1883 (Firewall)
+    └── test-data-flow.bat          # Test complet du flux de données
+```
+
+---
+
+## 📚 Documentation complémentaire
+
+- **[WOKWI-SETUP.md](WOKWI-SETUP.md)** - Guide complet de configuration Wokwi
+- **[GUIDE-DASHBOARD-GRAFANA.md](GUIDE-DASHBOARD-GRAFANA.md)** - Utilisation avancée de Grafana
+- **[esp32-wokwi-project/README.md](esp32-wokwi-project/README.md)** - Documentation du projet ESP32
+
+---
+
+## 🎓 Contexte académique
+
+**Cours** : TP1 IoT - Plateforme de collecte et visualisation
+**Formation** : M1 BDGL (Big Data et Gouvernance Logicielle)
+**Université** : Université Félix Houphouët-Boigny (UFHB)
+**Année** : 2024-2025
+
+---
+
+## 📝 Licence
+
+Ce projet est développé dans un cadre éducatif pour le TP1 IoT du M1 BDGL à l'UFHB.
+
+---
+
+## 👥 Contributeurs
+
+- **Leonel YAPI** - Développement et documentation
+- **Encadrants UFHB** - Supervision académique
+
+---
+
+## 🔗 Liens utiles
+
+- [Documentation Docker Compose](https://docs.docker.com/compose/)
+- [Documentation InfluxDB 2.x](https://docs.influxdata.com/influxdb/v2/)
+- [Documentation Telegraf](https://docs.influxdata.com/telegraf/)
+- [Documentation Grafana](https://grafana.com/docs/grafana/latest/)
+- [Documentation Wokwi](https://docs.wokwi.com/)
+- [ESP32 Arduino Core](https://docs.espressif.com/projects/arduino-esp32/)
+- [Flux Query Language](https://docs.influxdata.com/flux/v0/)
+
+---
+
+<div align="center">
+
+**🌍 Stack IoT Complète - De la simulation à la visualisation**
+
+Développé avec ❤️ pour le M1 BDGL - UFHB
+
+</div>

@@ -1,0 +1,16 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB
+    type: influxdb
+    uid: influxdb_datasource
+    access: proxy
+    url: http://influxdb:8086
+    jsonData:
+      version: Flux
+      organization: UFHB-IoT
+      defaultBucket: raw_7d
+      tlsSkipVerify: true
+    secureJsonData:
+      token: w0y2oNesnnAFM2g6NKGkib1PBYnpRsZ-BVLOJOkMUbB7sbTrewHTn3viC0xFsGfId1x891U6CPFdjctHUmEDng==
+    editable: true

@@ -1,0 +1,81 @@
+# =============================================================
+#  .gitignore — TP1 IoT M1 BDGL — UFHB
+#  Stack IoT : Mosquitto · Telegraf · InfluxDB · Grafana · ESP32 Wokwi
+# =============================================================
+
+# Docker volumes et données persistantes
+# (Ne pas commit les données de production)
+mosquitto/data/*
+mosquitto/log/*
+!mosquitto/data/.gitkeep
+!mosquitto/log/.gitkeep
+
+# Données Grafana (dashboards créés manuellement)
+grafana/data/*
+
+# Secrets et tokens
+# IMPORTANT: Ne jamais commit des tokens réels !
+# Les fichiers de config avec tokens doivent être nettoyés avant commit
+*.token
+*.key
+*.pem
+
+# Fichiers Windows temporaires
+Thumbs.db
+desktop.ini
+*.lnk
+
+# Fichiers système macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Fichiers IDE
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# PlatformIO (ESP32 project)
+esp32-wokwi-project/.pio/
+esp32-wokwi-project/.vscode/
+esp32-wokwi-project/lib/
+esp32-wokwi-project/.gitignore
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fichiers de backup
+*.bak
+*.backup
+*.old
+
+# Fichiers temporaires
+*.tmp
+*.temp
+nul
+
+# Claude Code
+.claude/
+
+# Docker Compose override (configurations locales)
+docker-compose.override.yml
+
+# Environnement
+.env
+.env.local
+.env.*.local
+
+# Scripts de test locaux (optionnel, décommenter si vous voulez les garder)
+# test-*.bat
+# check-*.bat
+# allow-*.bat
+# restart-*.bat
