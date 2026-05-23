@@ -46,6 +46,7 @@ esp32-wokwi-project/.pio/
 esp32-wokwi-project/.vscode/
 esp32-wokwi-project/lib/
 esp32-wokwi-project/.gitignore
+esp32-wokwi-project/compile_commands.json
 
 # Logs
 *.log

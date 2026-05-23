@@ -17,7 +17,7 @@ const char* password = "";
 // ===== CONFIGURATION MQTT =====
 // Wokwi tourne localement sur Windows, Mosquitto est dans Docker sur port 1883
 // On utilise l'IP Wi-Fi actuelle (peut changer selon le réseau)
-const char* mqtt_server = "10.0.27.187";  // IP Wi-Fi actuelle (ipconfig)
+const char* mqtt_server = "192.168.1.68";  // IP Wi-Fi actuelle (ipconfig)
 const int mqtt_port = 1883;
 const char* mqtt_client_id = "ESP32_Wokwi_001";
 

@@ -1,0 +1,1017 @@
+[{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b0"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-16T07:50:28.12Z"
+	},
+	"value": 460,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b1"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-22T22:51:08.716Z"
+	},
+	"value": 796,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b2"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-19T20:43:49.135Z"
+	},
+	"value": 411,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b3"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-21T14:00:29.71Z"
+	},
+	"value": 868,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b4"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-17T23:00:30.231Z"
+	},
+	"value": 517,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b5"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-22T01:14:46.812Z"
+	},
+	"value": 32.1,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b6"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-21T17:35:36.166Z"
+	},
+	"value": 1143,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b7"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-21T08:55:08.48Z"
+	},
+	"value": 52,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b8"
+	},
+	"device_id": "ESP32_001",
+	"commune": "cocody",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0083,
+			5.354
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-18T18:19:57.979Z"
+	},
+	"value": 919,
+	"unit": "ppm",
+	"severity": "high"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5b9"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-16T18:48:19.355Z"
+	},
+	"value": 1091,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5ba"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-16T13:00:48.762Z"
+	},
+	"value": 54.7,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5bb"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-19T06:58:54.054Z"
+	},
+	"value": 1028,
+	"unit": "ppm",
+	"severity": "low"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5bc"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-16T15:36:45.323Z"
+	},
+	"value": 847,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5bd"
+	},
+	"device_id": "ESP32_001",
+	"commune": "cocody",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0083,
+			5.354
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-19T18:55:34.603Z"
+	},
+	"value": 515,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5be"
+	},
+	"device_id": "ESP32_001",
+	"commune": "cocody",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0083,
+			5.354
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-22T04:48:13.023Z"
+	},
+	"value": 516,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5bf"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-16T14:03:41.93Z"
+	},
+	"value": 41.3,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c0"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-17T08:11:43.508Z"
+	},
+	"value": 69.4,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c1"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-18T17:18:59.151Z"
+	},
+	"value": 45.4,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c2"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-16T20:41:00.258Z"
+	},
+	"value": 25,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c3"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-18T16:38:09.019Z"
+	},
+	"value": 73,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c4"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-19T10:18:20.413Z"
+	},
+	"value": 1194,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c5"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-22T11:49:00.815Z"
+	},
+	"value": 916,
+	"unit": "ppm",
+	"severity": "low"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c6"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-21T03:49:30.679Z"
+	},
+	"value": 82.6,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c7"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-20T17:45:55.53Z"
+	},
+	"value": 55.8,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c8"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-20T17:29:09.343Z"
+	},
+	"value": 1025,
+	"unit": "ppm",
+	"severity": "high"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5c9"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-21T23:21:50.661Z"
+	},
+	"value": 31.1,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5ca"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-17T04:49:33.682Z"
+	},
+	"value": 24.9,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5cb"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-18T07:38:42.384Z"
+	},
+	"value": 42.1,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5cc"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-16T19:50:35.135Z"
+	},
+	"value": 427,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5cd"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-22T16:26:48.404Z"
+	},
+	"value": 22,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5ce"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-19T11:08:32.858Z"
+	},
+	"value": 1182,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5cf"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-20T10:39:27.792Z"
+	},
+	"value": 527,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d0"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-19T13:29:17.539Z"
+	},
+	"value": 507,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d1"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-18T23:35:55.109Z"
+	},
+	"value": 627,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d2"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-22T20:30:34.538Z"
+	},
+	"value": 79.1,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d3"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-17T19:11:03.155Z"
+	},
+	"value": 383,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d4"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-17T01:26:45.094Z"
+	},
+	"value": 35.8,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d5"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-20T02:11:24.017Z"
+	},
+	"value": 672,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d6"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-18T01:14:29.016Z"
+	},
+	"value": 66.7,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d7"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-20T15:13:15Z"
+	},
+	"value": 1084,
+	"unit": "ppm",
+	"severity": "low"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d8"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-21T10:00:35.197Z"
+	},
+	"value": 1179,
+	"unit": "ppm",
+	"severity": "high"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5d9"
+	},
+	"device_id": "ESP32_042",
+	"commune": "plateau",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0167,
+			5.3167
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-21T02:10:49.586Z"
+	},
+	"value": 951,
+	"unit": "ppm",
+	"severity": "low"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5da"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-19T00:07:59.436Z"
+	},
+	"value": 63.8,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5db"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-19T18:51:07.115Z"
+	},
+	"value": 958,
+	"unit": "ppm",
+	"severity": "medium"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5dc"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-21T02:30:21.166Z"
+	},
+	"value": 543,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5dd"
+	},
+	"device_id": "ESP32_058",
+	"commune": "adjame",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0234,
+			5.3634
+		]
+	},
+	"type": "co2",
+	"timestamp": {
+		"$date": "2026-05-18T02:43:06.057Z"
+	},
+	"value": 393,
+	"unit": "ppm"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5de"
+	},
+	"device_id": "ESP32_001",
+	"commune": "cocody",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0083,
+			5.354
+		]
+	},
+	"type": "humidity",
+	"timestamp": {
+		"$date": "2026-05-20T05:25:17.86Z"
+	},
+	"value": 75.9,
+	"unit": "%"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5df"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "temperature",
+	"timestamp": {
+		"$date": "2026-05-16T17:29:16.478Z"
+	},
+	"value": 28.4,
+	"unit": "°C"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5e0"
+	},
+	"device_id": "ESP32_031",
+	"commune": "marcory",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-3.9951,
+			5.3013
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-19T05:45:34.499Z"
+	},
+	"value": 1183,
+	"unit": "ppm",
+	"severity": "low"
+},
+{
+	"_id": {
+		"$oid": "6a10fd426b42077be08ce5e1"
+	},
+	"device_id": "ESP32_015",
+	"commune": "yopougon",
+	"location": {
+		"type": "Point",
+		"coordinates": [
+			-4.0748,
+			5.3396
+		]
+	},
+	"type": "alert",
+	"timestamp": {
+		"$date": "2026-05-17T08:36:25.829Z"
+	},
+	"value": 847,
+	"unit": "ppm",
+	"severity": "high"
+}]
+
