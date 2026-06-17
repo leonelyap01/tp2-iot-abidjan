@@ -102,3 +102,36 @@ printjson(
     { $sort: { distance_m: 1 } }
   ]).toArray()
 );
+
+// ══ Q6 — Top capteurs emetteurs + jointure devices (lookup) ═══════
+// Objectif : pour les 5 capteurs ayant emis le plus d'events, enrichir avec
+//            leurs metadonnees (commune, sensors, firmware) issues de "devices".
+// Pipeline : $group (compte par device) -> $sort -> $limit
+//         -> $lookup (jointure events.device_id == devices.device_id)
+//         -> $unwind (1 device par event_group) -> $project (mise en forme).
+// Index utilise : { device_id: 1 } unique sur devices (cote lookup) +
+//                 { device_id: 1, timestamp: -1 } sur events (cote $group).
+// Resultat attendu : 5 lignes avec nb_events + metadonnees du capteur correspondant.
+print('\n══ Q6 — Top capteurs emetteurs + jointure devices ($lookup) ══');
+printjson(
+  db.events.aggregate([
+    { $group: { _id: '$device_id', nb_events: { $sum: 1 } } },
+    { $sort: { nb_events: -1 } },
+    { $limit: 5 },
+    { $lookup: {
+        from: 'devices',
+        localField: '_id',
+        foreignField: 'device_id',
+        as: 'device'
+    }},
+    { $unwind: '$device' },
+    { $project: {
+        _id: 0,
+        device_id: '$_id',
+        nb_events: 1,
+        commune: '$device.commune',
+        sensors: '$device.sensors',
+        firmware: '$device.firmware'
+    }}
+  ]).toArray()
+);

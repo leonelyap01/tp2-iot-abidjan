@@ -548,8 +548,9 @@ iot-stack/
 ├── README.md                       # Ce fichier
 │
 ├── init_db.js                      # TP2 — collections, JSON Schema, 5 devices, index
-├── queries.js                      # TP2 — requêtes Q1–Q5 (+ explain IXSCAN)
+├── queries.js                      # TP2 — requêtes Q1–Q6 (avec $lookup, + explain IXSCAN)
 ├── events_insert.js                # TP2 — génération de 50 events
+├── validation_test.js              # TP2 — preuve live de la validation JSON Schema
 ├── sample_data.json                # TP2 — export mongoexport des 50 events
 │
 ├── mosquitto/                      # Configuration Mosquitto
@@ -684,19 +685,26 @@ docker exec -i mongodb mongoimport \
 
 ---
 
-## Résultats attendus Q1–Q5
+## Résultats attendus Q1–Q6
 
-| Requête | Description | Index utilisé | Résultat attendu |
+| Requête | Description | Index / opérateurs | Résultat attendu |
 |---|---|---|---|
 | **Q1** | Capteurs actifs de Cocody | `config.active + commune` (composé) | `ESP32_001` (DHT22 + MQ135) — **IXSCAN** |
 | **Q2** | Capteurs intégrant un DHT22 | `sensors` (multikey) | `ESP32_001`, `ESP32_015`, `ESP32_031`, `ESP32_058` |
 | **Q3** | Capteurs ≤ 3 km du Plateau | `location` (2dsphere) via `$near` | `ESP32_042` (Plateau), `ESP32_031` (Marcory ≈ 2,9 km) — **IXSCAN** |
 | **Q4** | Nb capteurs actifs / commune | `$match` + `$group` + `$sort` | 4 communes (cocody, yopougon, plateau, marcory), `nb_devices = 1` |
 | **Q5** | Tri par distance depuis Cocody | `$geoNear` (2dsphere) | 5 capteurs triés : Cocody (0 m) → Adjamé → Plateau → Marcory → Yopougon |
+| **Q6** | Top capteurs émetteurs + métadonnées | **`$lookup`** + `$group` + `$sort` + `$unwind` + `$project` | 5 lignes : `device_id`, `nb_events`, `commune`, `sensors`, `firmware` (jointure events ↔ devices) |
 
 > 💡 **COLLSCAN vs IXSCAN** : `explain('executionStats')` (Q1 et Q3) doit afficher un
 > `IXSCAN` / `GEO_NEAR_2DSPHERE` dans le `winningPlan`. Sans index, le même filtre
 > donnerait un `COLLSCAN` (à comparer dans MongoDB Compass).
+>
+> 💡 **`$lookup`** (Q6) matérialise la relation `events.device_id → devices.device_id`.
+> C'est l'illustration directe du choix « **Embed vs Reference** » : `location` et
+> `commune` sont **embarqués** dans `events` pour les requêtes géo, alors que les
+> métadonnées riches (sensors, firmware) sont **référencées** et chargées à la demande
+> via `$lookup`.
 
 ---
 
@@ -706,7 +714,7 @@ docker exec -i mongodb mongoimport \
 tp1-iot-abidjan/
 ├── docker-compose.yml      # TP1 intact + MongoDB + Mongo Express
 ├── init_db.js              # Collections, validation JSON Schema, 5 devices, index
-├── queries.js              # Q1–Q5 commentées (+ explain IXSCAN)
+├── queries.js              # Q1–Q6 commentées (Q6 = $lookup, + explain IXSCAN)
 ├── events_insert.js        # 50 events générés dynamiquement
 ├── sample_data.json        # Export JSON des 50 events (format mongoexport --jsonArray)
 ├── README.md               # Ce document (TP1 + TP2)
