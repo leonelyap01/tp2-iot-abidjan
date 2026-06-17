@@ -13,7 +13,7 @@
 | ☐ | Relancer `init_db.js` + `events_insert.js` pour données fraîches |
 | ☐ | Vérifier `ipconfig` → IP Wi-Fi == celle dans `esp32-wokwi-project/src/main.cpp` ligne 20 |
 | ☐ | Wokwi simulation démarrée et `mosquitto_sub` reçoit des messages |
-| ☐ | MongoDB Compass **connecté** : `mongodb://admin:ufhb2024!@localhost:27017/?authSource=admin` |
+| ☐ | MongoDB Compass **connecté** : `mongodb://admin:ufhb2024%21@localhost:27018/?authSource=admin` (port hôte 27018, password URL-encodé) |
 | ☐ | Mongo Express ouvert : http://localhost:8081 |
 | ☐ | Grafana ouvert : http://localhost:3000 — dashboard ESP32 chargé |
 | ☐ | VS Code ouvert avec `queries.js` visible, gros zoom (Ctrl++ x3) |

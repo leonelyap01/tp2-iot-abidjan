@@ -110,7 +110,8 @@ services:
     image: mongo:7
     container_name: mongodb
     ports:
-      - "27017:27017"
+      # Port hote 27018 (le 27017 est pris par un mongod natif Windows utilise par un autre TP)
+      - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: ufhb2024!
